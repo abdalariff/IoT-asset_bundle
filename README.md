@@ -1,61 +1,70 @@
-# telemetry-asset_bundle
-Telemetry Asset Bundle – Fleet Medallion Pipeline
+# Telemetry Asset Bundle
+**Fleet Telemetry – Databricks Medallion Asset Bundle**
 
-This repo implements a complete Databricks Medallion Architecture (Bronze → Silver → Gold) for real-time fleet telemetry. It ingests continuous sensor data, cleans and enriches it with SQL UDFs, and produces analytics-ready Gold tables.
+A modular fleet telemetry pipeline built on the **Databricks Medallion Architecture**. It simulates continuous fleet sensor data, processes it through **Bronze, Silver, and Gold layers**, and enriches the data using **SQL UDFs**. The project uses **Databricks Asset Bundles** for structured deployment.
 
-🚗 What This Bundle Does
+---
 
-Ingests streaming fleet sensor events
+## Project Structure
 
-Adds metadata + raw history (Bronze)
+### `continuous_ingestion`
+- EventHub-style simulator notebook using PySpark to generate continuous sensor data.
+- Produces the raw Delta table that all pipelines ingest.
 
-Cleans, validates, and enriches with UDF logic (Silver)
+### `asset_bundle/bronze`
+- Bronze pipeline YAML.
+- Bronze ingestion notebook.
 
-Aggregates KPIs like speed, distance, fuel, risk score (Gold)
+### `asset_bundle/silver`
+- Silver pipeline YAML.
+- Transformation notebook applying validations and UDFs.
 
-Easily deployable via Databricks Asset Bundles
+### `asset_bundle/gold`
+- Gold pipeline YAML.
+- Notebook generating aggregated business metrics.
 
-🧱 Pipeline Layers
-Bronze
+### `asset_bundle/functions`
+- UDF pipeline YAML.
+- Notebook defining all telemetry enrichment functions.
 
-Raw FleetSensorEvents
+### `dbx.yml`
+- Root configuration file for Databricks Asset Bundles.
 
-Adds ingest timestamp + source system
+---
 
-Silver
+## Data Flow
 
-Applies UDFs: overspeed, fuel check, tire pressure, temperature status, risk score
+### Continuous Ingestion
+- Simulates real-time sensor events such as GPS, speed, engine & battery metrics, tire pressure, geofence activity, and auxiliary equipment states.
+- Uses PySpark to continuously generate random data, mimicking EventHub streaming.
 
-Standardizes + cleans data
+### Bronze Layer
+- Ingests raw telemetry into a structured Delta table.
+- Preserves the original incoming schema and metadata.
+- Acts as the immutable source for downstream layers.
 
-Gold
+### Silver Layer
+- Cleans, validates, and enriches the Bronze data.
+- Applies domain logic through SQL-based UDFs.
+- Produces structured streaming tables ready for analytics.
 
-Vehicle-level metrics
+### Gold Layer
+- Generates business-focused outputs: performance metrics, daily summaries, alert counts, and vehicle health indicators.
+- Designed for dashboards, reporting, and downstream analytics.
 
-Hourly/daily aggregates
+---
 
-Geofence, speed, fuel, engine KPIs
+## UDF Logic (Used in Silver Layer)
+- `IsOverSpeeding`
+- `IsLowFuel`
+- `TirePressureStatus`
+- `EngineTempStatus`
+- `VehicleRiskScore`
 
-🔧 UDFs Included
+> These functions translate raw telemetry into interpretable classifications and risk indicators.
 
-IsOverSpeeding
+---
 
-IsLowFuel
-
-TirePressureStatus
-
-EngineTempStatus
-
-VehicleRiskScore
-
-🚀 Deploy
-
-Use Databricks Asset Bundles:
-
-databricks bundle deploy
-databricks bundle run fleet_medallion_pipeline
-
-📌 Purpose
-
-A clean, modular example of real-time telemetry ETL, designed for:
-Fleet data, IoT pipelines, alerting, KPI dashboards, ops intelligence.
+## Purpose
+This repository demonstrates a clean, **production-aligned implementation** of a real-time IoT telemetry pipeline on Databricks.  
+It highlights **streaming ingestion**, **medallion architecture design**, **SQL UDF enrichment**, and **business metric creation** using a clear and maintainable bundle structure.

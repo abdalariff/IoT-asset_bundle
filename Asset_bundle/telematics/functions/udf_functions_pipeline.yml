@@ -1,0 +1,12 @@
+name: udf_functions_pipeline
+version: 1
+pipelines:
+  - name: udf_create
+    description: "Create SQL UDFs for Silver transformations"
+    type: notebook
+    notebook_path: "/Workspace/Users/abdalariff@gmail.com/Asset_bundle/telematics/functions/Functions_udf.ipynb"
+    libraries: []
+    tasks:
+      - key: udf_create
+        description: "Create all fleet UDFs"
+        depends_on: []

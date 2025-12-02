@@ -1,0 +1,16 @@
+name: silver_pipeline
+version: 1
+pipelines:
+  - name: silver_transform
+    description: "Transform Bronze to Silver using UDFs"
+    type: notebook
+    notebook_path: "/Workspace/Users/abdalariff@gmail.com/Asset_bundle/telematics/Silver/Silver_FleetSensorEvents.ipynb"
+    libraries: []
+    parameters:
+      source_table: "Bronze_FleetSensorEvents"
+      target_table: "Silver_FleetSensorEvents"
+    tasks:
+      - key: silver_transform
+        description: "Silver transformation task"
+        depends_on:
+          - bronze_ingest

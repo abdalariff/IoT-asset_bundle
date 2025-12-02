@@ -1,0 +1,15 @@
+name: bronze_pipeline
+version: 1
+pipelines:
+  - name: bronze_ingest
+    description: "Ingest raw FleetSensorEvents into Bronze table"
+    type: notebook
+    notebook_path: "/Workspace/Users/abdalariff@gmail.com/Asset_bundle/telematics/bronze/Bronze_FleetSensorEvents.ipynb"
+    libraries: []
+    parameters:
+      source_table: "FleetSensorEvents"
+      target_table: "Bronze_FleetSensorEvents"
+    tasks:
+      - key: bronze_ingest
+        description: "Bronze ingestion task"
+        depends_on: []

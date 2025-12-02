@@ -1,0 +1,37 @@
+name: fleet_medallion_pipeline
+version: 1
+pipelines:
+  - name: fleet_udf_functions
+    description: "Create all required UDFs first"
+    pipeline: "udf_functions_pipeline"
+    tasks:
+      - key: udf_functions
+        description: "Run UDF notebook"
+        depends_on: []
+
+  - name: fleet_bronze
+    description: "Run Bronze ingestion pipeline"
+    pipeline: "bronze_pipeline"
+    tasks:
+      - key: bronze
+        description: "Run Bronze pipeline"
+        depends_on:
+          - udf_functions
+
+  - name: fleet_silver
+    description: "Run Silver transformation pipeline"
+    pipeline: "silver_pipeline"
+    tasks:
+      - key: silver
+        description: "Run Silver pipeline"
+        depends_on:
+          - bronze
+
+  - name: fleet_gold
+    description: "Run Gold aggregation pipeline"
+    pipeline: "gold_pipeline"
+    tasks:
+      - key: gold
+        description: "Run Gold pipeline"
+        depends_on:
+          - silver

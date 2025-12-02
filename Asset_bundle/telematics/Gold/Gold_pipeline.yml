@@ -1,0 +1,16 @@
+name: gold_pipeline
+version: 1
+pipelines:
+  - name: gold_aggregate
+    description: "Aggregate Silver to Gold metrics per vehicle/hour"
+    type: notebook
+    notebook_path: "/Workspace/Users/abdalariff@gmail.com/Asset_bundle/telematics/Gold/Gold_FleetMetrics.ipynb"
+    libraries: []
+    parameters:
+      source_table: "Silver_FleetSensorEvents"
+      target_table: "Gold_FleetMetrics"
+    tasks:
+      - key: gold_aggregate
+        description: "Gold aggregation task"
+        depends_on:
+          - silver_transform

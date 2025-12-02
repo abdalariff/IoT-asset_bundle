@@ -1,7 +1,7 @@
-# Telemetry Asset Bundle
-**Fleet Telemetry – Databricks Medallion Asset Bundle**
+# IoT Asset Bundle
+**Fleet IoT – Databricks Medallion Asset Bundle**
 
-A modular fleet telemetry pipeline built on the **Databricks Medallion Architecture**. It simulates continuous fleet sensor data, processes it through **Bronze, Silver, and Gold layers**, and enriches the data using **SQL UDFs**. The project uses **Databricks Asset Bundles** for structured deployment.
+A modular fleet **IoT pipeline** built on the **Databricks Medallion Architecture**. Inspired by telemetry systems, it simulates continuous fleet sensor data, processes it through **Bronze, Silver, and Gold layers**, and enriches the data using **SQL UDFs**. The project uses **Databricks Asset Bundles** for structured deployment.
 
 ---
 
@@ -25,7 +25,7 @@ A modular fleet telemetry pipeline built on the **Databricks Medallion Architect
 
 ### `asset_bundle/functions`
 - UDF pipeline YAML.
-- Notebook defining all telemetry enrichment functions.
+- Notebook defining all IoT enrichment functions.
 
 ### `dbx.yml`
 - Root configuration file for Databricks Asset Bundles.
@@ -39,7 +39,7 @@ A modular fleet telemetry pipeline built on the **Databricks Medallion Architect
 - Uses PySpark to continuously generate random data, mimicking EventHub streaming.
 
 ### Bronze Layer
-- Ingests raw telemetry into a structured Delta table.
+- Ingests raw IoT telemetry into a structured Delta table.
 - Preserves the original incoming schema and metadata.
 - Acts as the immutable source for downstream layers.
 
@@ -66,5 +66,5 @@ A modular fleet telemetry pipeline built on the **Databricks Medallion Architect
 ---
 
 ## Purpose
-This repository demonstrates a clean, **production-aligned implementation** of a real-time IoT telemetry pipeline on Databricks.  
-It highlights **streaming ingestion**, **medallion architecture design**, **SQL UDF enrichment**, and **business metric creation** using a clear and maintainable bundle structure.
+This repository demonstrates a clean, **production-aligned implementation** of a real-time **IoT pipeline** on Databricks.  
+It is **inspired by telemetry systems**, highlighting **streaming ingestion**, **medallion architecture design**, **SQL UDF enrichment**, and **business metric creation** using a clear and maintainable bundle structure.
